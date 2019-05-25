@@ -34,8 +34,12 @@ stage('Artifact Download') {
 artifactdownload(_POM)
 }
 
-stage ('Application Deployment'){
+stage('Application Deployment'){
   artifactdeploy(_deploymentServer,_POM)
+}
+
+stage('Docker image build'){
+dockerbuild(_POM)
 }
 }
 }

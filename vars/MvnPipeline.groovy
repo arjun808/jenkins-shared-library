@@ -46,4 +46,5 @@ dockerbuild(_POM)
       k8sdeploy(_POM)
 }
 }
+}
 return this

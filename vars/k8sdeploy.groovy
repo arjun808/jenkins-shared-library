@@ -1,5 +1,6 @@
 def call(def pom){
 pomvalues = readMavenPom file: "${pom}"
-k8foldername = "${pomvalues.artifactId.toLowerCase()}"
-sh "kubectl apply -f ${JENKINS_HOME}/${k8foldername}/"
+k8appname = "${pomvalues.artifactId.toLowerCase()}"
+sh "kubectl set image deployment ${k8appname} ${k8appname}=${k8appname}:${BUILD_NUMBER}"
+sh "kubectl rollout status deployment ${k8appname}"
 }

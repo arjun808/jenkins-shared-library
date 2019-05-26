@@ -48,11 +48,11 @@ stage('K8s Deployment'){
  k8sdeploy(_POM)
 }
 stage('Email Notification'){
-    mail body:"Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email
+    mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
 }
 }
 } catch (err) {
- 	mail body:"${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email
+ 	mail(body: "${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
  	currentBuild.result = 'FAILURE'
  	}
 

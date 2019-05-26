@@ -52,7 +52,7 @@ stage('Email Notification'){
 }
 }
 } catch (err) {
- 	mail(body: "${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+     mail(body: "${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
  	currentBuild.result = 'FAILURE'
  	}
 }

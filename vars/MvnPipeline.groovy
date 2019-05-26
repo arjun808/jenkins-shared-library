@@ -1,4 +1,5 @@
 def call(Map params) {
+  try {
   node('master') {
   def _gitBranch = '*/'+params.gitBranch
   def _gitRepo = params.gitRepo
@@ -6,6 +7,7 @@ def call(Map params) {
   def _mvnGoal = params.mvnGoal
   def _POM = params.POM
   def _deploymentServer = params.deploymentServer
+  def _email = params.email
   
 stage('Clone') 
 {
@@ -38,13 +40,21 @@ stage('Application Deployment'){
   artifactdeploy(_deploymentServer,_POM)
 }
 
-stage('Docker image build'){
+stage('Docker Image Build'){
 dockerbuild(_POM)
 }
 
-stage('K8s deployment'){
+stage('K8s Deployment'){
  k8sdeploy(_POM)
 }
+stage('Email Notification'){
+mail body:"Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email
 }
+}
+} catch (err) {
+ 	mail body:"${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email
+ 	currentBuild.result = 'FAILURE'
+ 	}
+
 }
 return this

@@ -40,10 +40,15 @@ stage('Application Deployment'){
   artifactdeploy(_deploymentServer,_POM)
 }
 
+userInput = input(
+        id: 'Proceed1', message: 'Was deployment successful?', parameters: [
+        [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm']
+        ])
+
+if (userInput == true) {
 stage('Docker Image Build'){
 dockerbuild(_POM)
 }
-
 stage('K8s Deployment'){
  k8sdeploy(_POM)
 }
@@ -51,8 +56,12 @@ stage('Email Notification'){
     mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
 }
 }
+ else {
+   mail(body: "Build not promoted to K8s cluster. Check result at ${BUILD_URL}", subject: "Build ABORTED for Job ${JOB_NAME} - Build# ${BUILD_NUMBER}", to: _email)
+	currentBuild.result = 'ABORTED'
+ }
 } catch (err) {
-     mail(body: "${err}. Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+     mail(body: "${err} Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
      currentBuild.result = 'FAILURE'
 	 }
 }

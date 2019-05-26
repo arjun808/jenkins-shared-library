@@ -41,7 +41,7 @@ stage('Application Deployment'){
 }
 
 userInput = input(
-        id: 'Proceed1', message: 'Was deployment successful?', parameters: [
+        id: 'Proceed1', message: 'Was QA deployment successful?', parameters: [
         [$class: 'BooleanParameterDefinition', defaultValue: true, description: '', name: 'Please confirm']
         ])
 
@@ -60,7 +60,7 @@ stage('Email Notification'){
 } 
  catch (err) {
      if ("${err}" == "org.jenkinsci.plugins.workflow.steps.FlowInterruptedException"){
-	 mail(body: "Check result at ${BUILD_URL}", subject: "Build Aborted for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+	 mail(body: "Build not pushed to K8s cluster. Check result at ${BUILD_URL}", subject: "Build Aborted for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
 	 currentBuild.result = 'ABORTED'
 	 } else{
      mail(body: "${err} Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)

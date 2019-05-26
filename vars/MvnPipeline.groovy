@@ -43,7 +43,7 @@ dockerbuild(_POM)
 }
 
 stage('K8s deployment'){
- kubernetesdeploy(_POM)
+ k8sdeploy(_POM)
 }
 }
 }

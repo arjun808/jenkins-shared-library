@@ -41,6 +41,9 @@ stage('Application Deployment'){
 stage('Docker image build'){
 dockerbuild(_POM)
 }
+
+    stage('K8s deployment'){
+      k8sdeploy(_POM)
 }
 }
 return this

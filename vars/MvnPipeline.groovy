@@ -1,6 +1,4 @@
 def call(Map params) {
-  try {
-  node('master') {
   def _gitBranch = '*/'+params.gitBranch
   def _gitRepo = params.gitRepo
   def _sonarURL = params.SonarURL
@@ -9,6 +7,8 @@ def call(Map params) {
   def _deploymentServer = params.deploymentServer
   def _email = params.email
   
+  try {
+  node('master') {
 stage('Clone') 
 {
   gitclone(_gitBranch,_gitRepo)

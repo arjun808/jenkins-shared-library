@@ -60,6 +60,7 @@ stage('Email Notification'){
    mail(body: "Build not promoted to K8s cluster. Check result at ${BUILD_URL}", subject: "Build ABORTED for Job ${JOB_NAME} - Build# ${BUILD_NUMBER}", to: _email)
 	currentBuild.result = 'ABORTED'
  }
+} 
 } catch (err) {
      mail(body: "${err} Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
      currentBuild.result = 'FAILURE'

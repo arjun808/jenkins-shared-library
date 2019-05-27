@@ -1,4 +1,4 @@
-def call(def server, def pom, def user, def path) {
+def call(def server, def pom, def user, def path, def dockeruser) {
 pomvalues = readMavenPom file: "${pom}"
 //sh "scp ${WORKSPACE}/${BUILD_NUMBER}/${pomvalues.artifactId}-${pomvalues.version}.${pomvalues.packaging} ${user}@${server}:${path}${pomvalues.artifactId}.${pomvalues.packaging}"
 sh "ssh ${user}@${server} \"docker rm -f $(docker ps -aq)\""

@@ -1,9 +1,9 @@
-def call(def goal, def pom) {
+def call(def goal, def pom, def rrepo, def srepo) {
 rtMavenDeployer (
     id: 'deployer-unique-id',
     serverId: 'Artifactory',
-    releaseRepo: "generic-local/${BUILD_NUMBER}",
-    snapshotRepo: "generic-snapshot/${BUILD_NUMBER}"
+    releaseRepo: "${rrepo}/${BUILD_NUMBER}",
+    snapshotRepo: "${srepo}/${BUILD_NUMBER}"
 )
 
 rtMavenRun (

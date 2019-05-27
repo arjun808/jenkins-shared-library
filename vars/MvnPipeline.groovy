@@ -44,8 +44,12 @@ stage('Artifact Download') {
 artifactdownload(_POM,_snapshotRepo)
 }
 
+stage('Docker Image Build'){
+dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
+}
+	  
 stage('Application Deployment'){
-  artifactdeploy(_deploymentServer,_POM,_sshUser,_deploymentPath)
+  artifactdeploy(_deploymentServer,_POM,_sshUser,_deploymentPath,_dockerUser)
 }
 
 userInput = input(
@@ -54,9 +58,6 @@ userInput = input(
         ])
 
 if (userInput == true) {
-stage('Docker Image Build'){
-dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
-}
 stage('K8s Deployment'){
  k8sdeploy(_POM,_dockerUser)
 }

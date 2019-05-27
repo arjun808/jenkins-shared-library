@@ -1,6 +1,9 @@
 def call(Map params) {
   def _gitBranch = '*/'+params.gitBranch
   def _gitRepo = params.gitRepo
+  def _releaseRepo = params.releaseRepo
+  def _snapshotRepo = params.snapshotRepo
+  def _dockerUser = params.dockerUser
   def _sonarURL = params.SonarURL
   def _mvnGoal = params.mvnGoal
   def _POM = params.POM
@@ -30,12 +33,12 @@ stage('SonarQube quality gate check')
 
 stage('Build & Upload')
 {
-  mvnbuild(_mvnGoal,_POM)
+  mvnbuild(_mvnGoal,_POM,_releaseRepo,_snapshotRepo)
 }
 
 
 stage('Artifact Download') {
-artifactdownload(_POM)
+artifactdownload(_POM,_snapshotRepo)
 }
 
 stage('Application Deployment'){
@@ -49,10 +52,10 @@ userInput = input(
 
 if (userInput == true) {
 stage('Docker Image Build'){
-dockerbuild(_POM)
+dockerbuild(_POM,_dockerUser)
 }
 stage('K8s Deployment'){
- k8sdeploy(_POM)
+ k8sdeploy(_POM,_dockerUser)
 }
 stage('Email Notification'){
     mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)

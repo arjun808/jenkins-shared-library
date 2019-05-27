@@ -3,6 +3,9 @@ def call(Map params) {
   def _gitRepo = params.gitRepo
   def _releaseRepo = params.releaseRepo
   def _snapshotRepo = params.snapshotRepo
+  def _dbUrl = params.dbUrl
+  def _dbUser = params.dbUser
+  def _dbPassword = params.dbPassword
   def _dockerUser = params.dockerUser
   def _sonarURL = params.SonarURL
   def _mvnGoal = params.mvnGoal
@@ -52,7 +55,7 @@ userInput = input(
 
 if (userInput == true) {
 stage('Docker Image Build'){
-dockerbuild(_POM,_dockerUser)
+dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 stage('K8s Deployment'){
  k8sdeploy(_POM,_dockerUser)

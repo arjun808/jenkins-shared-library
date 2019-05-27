@@ -14,11 +14,7 @@ def call(Map params) {
   def _sshUser = params.sshUser
   def _deploymentPath = params.deploymentPath
   def _email = params.email
-  
- echo _dbUrl
- echo _dbUser
- echo _dbPassword
-	
+  	
   try {
   node('master') {
 stage('Clone') 

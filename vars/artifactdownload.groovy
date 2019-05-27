@@ -1,4 +1,4 @@
-def call(def pom) {
+def call(def pom, def srepo) {
 pomvalues = readMavenPom file: "${pom}"
 rtDownload (
     serverId: "Artifactory",
@@ -6,7 +6,7 @@ rtDownload (
         """{
           "files": [
             {
-              "pattern": "generic-snapshot/${BUILD_NUMBER}/*/${pomvalues.artifactId}-${pomvalues.version}.${pomvalues.packaging}",
+              "pattern": "${srepo}/${BUILD_NUMBER}/*/${pomvalues.artifactId}-${pomvalues.version}.${pomvalues.packaging}",
               "target": "${WORKSPACE}/${BUILD_NUMBER}/",
               "flat": "true"
             }

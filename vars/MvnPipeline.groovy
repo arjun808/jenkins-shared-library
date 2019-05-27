@@ -5,6 +5,7 @@ def call(Map params) {
   def _mvnGoal = params.mvnGoal
   def _POM = params.POM
   def _deploymentServer = params.deploymentServer
+  def _deploymentPath = params.deploymentPath
   def _email = params.email
   
   try {
@@ -37,7 +38,7 @@ artifactdownload(_POM)
 }
 
 stage('Application Deployment'){
-  artifactdeploy(_deploymentServer,_POM)
+  artifactdeploy(_deploymentServer,_POM,_deploymentPath)
 }
 
 userInput = input(

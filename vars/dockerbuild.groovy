@@ -3,9 +3,8 @@ pomvalues = readMavenPom file: "${pom}"
 imagename = "${pomvalues.artifactId.toLowerCase()}"
 sh "mv ${WORKSPACE}/${BUILD_NUMBER}/${pomvalues.artifactId}-${pomvalues.version}.${pomvalues.packaging} ./${pomvalues.artifactId}.${pomvalues.packaging}"
 sh '''
-set +x
+#!/bin/bash +x
 docker build . -t ${duser}/${imagename}:${BUILD_NUMBER} --build-arg dburl=\"${dburl}\" --build-arg dbuser=\"${dbuser}\" --build-arg dbpassword=\"${dbpassword}\" --build-arg artifact=${pomvalues.artifactId}.${pomvalues.packaging}
-set -x
 '''
 //sh "set +x"
 //sh "docker build . -t ${duser}/${imagename}:${BUILD_NUMBER} --build-arg dburl=\"${dburl}\" --build-arg dbuser=\"${dbuser}\" --build-arg dbpassword=\"${dbpassword}\" --build-arg artifact=${pomvalues.artifactId}.${pomvalues.packaging}"

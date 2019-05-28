@@ -46,9 +46,7 @@ artifactdownload(_POM,_snapshotRepo)
 
 stage('Docker Image Build'){
 	def db_credentials = 'bbd3df4a-137f-45f5-a98d-2d0a9ce8cfc5'
-	withCredentials([
-      [$class: 'UsernamePasswordMultiBinding', credentialsId: db_credentials, usernameVariable: 'dbUser', passwordVariable: 'dbPassword'],
-  ]){
+	withCredentials([usernamePassword(credentialsId: 'bbd3df4a-137f-45f5-a98d-2d0a9ce8cfc5', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
 	//def _dbUser = dbUser
 	//def _dbPassword = dbPassword
 		echo "${dbUser}"

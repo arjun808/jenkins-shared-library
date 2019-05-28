@@ -5,8 +5,8 @@ def call(Map params) {
   def _snapshotRepo = params.snapshotRepo
   def _dbUrl = params.dbUrl
   def _dbUser = params.dbUser
-  def _dbPassword = params.dbPassword
-  def _dockerUser = params.dockerUser
+  //def _dbPassword = params.dbPassword
+  //def _dockerUser = params.dockerUser
   def _sonarURL = params.SonarURL
   def _mvnGoal = params.mvnGoal
   def _POM = params.POM
@@ -46,7 +46,9 @@ artifactdownload(_POM,_snapshotRepo)
 
 stage('Docker Image Build'){
 withCredentials([usernamePassword(credentialsId: 'dbcredentials', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
-	dockerbuild(_POM,_dockerUser,_dbUrl,'${dbUser}','${dbPassword}')
+	def _dbUser = "${dbUser}"
+	def _dbPassword = ${dbPassword}
+	dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 }
 	  

@@ -46,7 +46,7 @@ artifactdownload(_POM,_snapshotRepo)
 
 stage('Docker Image Build'){
 withCredentials([usernamePassword(credentialsId: 'dbcredentials', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
-	dockerbuild(_POM,_dockerUser,_dbUrl,${dbUser},${dbPassword})
+	dockerbuild(_POM,_dockerUser,_dbUrl,'${dbUser}','${dbPassword}')
 }
 }
 	  

@@ -47,7 +47,7 @@ artifactdownload(_POM,_snapshotRepo)
 stage('Docker Image Build'){
 	dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
-}
+
 	  
 stage('Application Deployment'){
   artifactdeploy(_deploymentServer,_POM,_sshUser,_deploymentPath,_dockerUser)
@@ -64,6 +64,7 @@ stage('K8s Deployment'){
 }
 stage('Email Notification'){
     mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+}
 }
 }
  } catch (err) {

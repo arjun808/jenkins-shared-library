@@ -67,17 +67,15 @@ stage('K8s Deployment'){
  k8sdeploy(_POM,_dockerUser)
 }
 stage('Email Notification'){
-    mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+    mail(body: "Check result at ${BUILD_URL}", subject: "Build Succeeded for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
 }
 }
- }
-} 
- catch (err) {
+ } catch (err) {
      if ("${err}" == "org.jenkinsci.plugins.workflow.steps.FlowInterruptedException"){
-	 mail(body: "Build aborted. Check result at ${BUILD_URL}", subject: "Build Aborted for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+	 mail(body: "Build aborted. Check result at ${BUILD_URL}", subject: "Build Aborted for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
 	 currentBuild.result = 'ABORTED'
 	 } else{
-     mail(body: "${err} Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
+     mail(body: "${err} Check result at ${BUILD_URL}", subject: "Build Failed for Job ${JOB_NAME} - Build # ${BUILD_NUMBER}", to: _email)
      currentBuild.result = 'FAILURE'
 	 }
 }

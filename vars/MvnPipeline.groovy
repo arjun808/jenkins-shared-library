@@ -53,7 +53,7 @@ stage('Docker Image Build'){
 	//def _dbPassword = dbPassword
 		echo "${dbUser}"
 		echo "${dbPassword}"
-	dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
+	//dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 }
 	  

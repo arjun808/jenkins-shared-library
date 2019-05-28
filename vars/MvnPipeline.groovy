@@ -3,7 +3,7 @@ def call(Map params) {
   def _gitRepo = params.gitRepo
   def _releaseRepo = params.releaseRepo
   def _snapshotRepo = params.snapshotRepo
- // def _dbUrl = params.dbUrl
+  def _dbUrl = params.dbUrl
  // def _dbUser = params.dbUser
  // def _dbPassword = params.dbPassword
   def _dockerUser = params.dockerUser
@@ -45,8 +45,7 @@ artifactdownload(_POM,_snapshotRepo)
 }
 
 stage('Docker Image Build'){
-	def db_credentials = 'bbd3df4a-137f-45f5-a98d-2d0a9ce8cfc5'
-	withCredentials([usernamePassword(credentialsId: 'bbd3df4a-137f-45f5-a98d-2d0a9ce8cfc5', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
+	withCredentials([usernamePassword(credentialsId: '6681765d-97e5-4459-9e7b-841e2ac2f19f', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
 	//def _dbUser = dbUser
 	//def _dbPassword = dbPassword
 		echo '$dbUser'

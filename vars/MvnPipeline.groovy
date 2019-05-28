@@ -45,10 +45,6 @@ artifactdownload(_POM,_snapshotRepo)
 }
 
 stage('Docker Image Build'){
-	def _dbUser = dbUser
-	def _dbPassword = dbPassword
-		echo '$dbUser'
-		echo '$dbPassword'
 	dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 }

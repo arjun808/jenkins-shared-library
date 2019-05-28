@@ -49,8 +49,8 @@ stage('Docker Image Build'){
 	withCredentials([usernamePassword(credentialsId: 'bbd3df4a-137f-45f5-a98d-2d0a9ce8cfc5', passwordVariable: 'dbPassword', usernameVariable: 'dbUser')]) {
 	//def _dbUser = dbUser
 	//def _dbPassword = dbPassword
-		echo "${dbUser}"
-		echo "${dbPassword}"
+		echo "$dbUser"
+		echo "$dbPassword"
 	//dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 }

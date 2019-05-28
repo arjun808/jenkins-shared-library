@@ -3,8 +3,8 @@ def call(Map params) {
   def _gitRepo = params.gitRepo
   def _releaseRepo = params.releaseRepo
   def _snapshotRepo = params.snapshotRepo
-  def _dbUrl = params.dbUrl
-  def _dbUser = params.dbUser
+ // def _dbUrl = params.dbUrl
+ // def _dbUser = params.dbUser
   def _dbPassword = params.dbPassword
   def _dockerUser = params.dockerUser
   def _sonarURL = params.SonarURL

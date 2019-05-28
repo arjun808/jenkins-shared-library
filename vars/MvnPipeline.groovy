@@ -48,8 +48,10 @@ stage('Docker Image Build'){
 	withCredentials([
       [$class: 'UsernamePasswordMultiBinding', credentialsId: 'dbcredentials', usernameVariable: 'dbUser', passwordVariable: 'dbPassword'],
   ]){
-	def _dbUser = dbUser
-	def _dbPassword = dbPassword
+	//def _dbUser = dbUser
+	//def _dbPassword = dbPassword
+		echo "${dbUser}"
+		echo ${dbPassword}
 	dockerbuild(_POM,_dockerUser,_dbUrl,_dbUser,_dbPassword)
 }
 }
